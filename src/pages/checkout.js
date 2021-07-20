@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Image from "next/image";
 import { selectItems } from "../slices/basketSlice";
 import { useSelector } from "react-redux";
+import CheckoutProduct from "../components/CheckoutProduct";
 
 function Checkout() {
   const items = useSelector(selectItems);
@@ -28,7 +29,17 @@ function Checkout() {
                 : "Shopping Basket"}
             </h1>
             {items.map((item, i) => {
-              <CheckoutProduct />;
+              <CheckoutProduct 
+                key={i}
+                id={item.id}
+                title={item.title}
+                rating={item.rating}
+                price={item.price}
+                description={item.description}
+                categroy={item.category}
+                image={item.image}
+                hasPrime={item.hasPrime}
+              />;
             })}
           </div>
 
