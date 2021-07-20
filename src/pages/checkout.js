@@ -28,7 +28,7 @@ function Checkout() {
                 ? "Your Amazon Basket is empty!"
                 : "Shopping Basket"}
             </h1>
-            {items.map((item, i) => {
+            {items.map((item, i) => (
               <CheckoutProduct 
                 key={i}
                 id={item.id}
@@ -39,8 +39,8 @@ function Checkout() {
                 categroy={item.category}
                 image={item.image}
                 hasPrime={item.hasPrime}
-              />;
-            })}
+              />
+            ))}
           </div>
 
           {/* Right */}
