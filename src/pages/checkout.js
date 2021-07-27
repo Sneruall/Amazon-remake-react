@@ -5,19 +5,33 @@ import { useSelector } from "react-redux";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Currency from "react-currency-formatter";
 import { useSession } from "next-auth/client";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(process.env.stripe_public_key)
+import {loadStripe} from '@stripe/stripe-js';
+import axios from "axios";
+const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
   const [session] = useSession();
 
-  const createCheckoutSession = () => {
+  const createCheckoutSession = async () => {
     const stripe = await stripePromise;
 
     // Call the backend to create a checkout session...
-  }
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      items,
+      email: session.user.email,
+    });
+
+    // Redirect user to stripe checkout
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id
+    })
+
+    if (result.error){
+      alert(result.error.message);
+    }
+  };
 
   return (
     <div>
