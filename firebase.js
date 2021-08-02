@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from "firebase";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDafaMcf6XKsgWe95YZ898vPnh_pd7hvrc",
@@ -6,5 +6,13 @@ const firebaseConfig = {
   projectId: "amzn-react-8f082",
   storageBucket: "amzn-react-8f082.appspot.com",
   messagingSenderId: "133979520761",
-  appId: "1:133979520761:web:17198d298ff1262b596c28"
-  };
+  appId: "1:133979520761:web:17198d298ff1262b596c28",
+};
+
+const app = !firebase.apps.length
+  ? firebase.initializeApp(firebaseConfig)
+  : firebase.app();
+
+  const db = app.firestore();
+
+  export default db;
